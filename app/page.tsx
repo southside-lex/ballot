@@ -1,33 +1,70 @@
 import { supabase } from '@/lib/supabase'
-import Link from 'next/link'
+import Hero from '@/components/Hero'
+import RaceSection from '@/components/RaceSection'
+import Timeline from '@/components/Timeline'
 
 export default async function Home() {
-  const { data: candidates, error } = await supabase
-    .from('candidates')
-    .select('id, name, party, is_incumbent')
+  // Fetch all positions + their candidates, sorted by hierarchy.
+  const { data: positions, error: positionsError } = await supabase
+    .from('positions')
+    .select(`
+      id,
+      title,
+      description,
+      state,
+      district,
+      hierarchy_rank,
+      candidates (
+        id,
+        name,
+        party,
+        is_incumbent,
+        photo_url
+      )
+    `)
+    .order('hierarchy_rank', { ascending: true })
+    .order('state', { ascending: true })
 
-  if (error) {
-    return <div className="p-8">Error: {error.message}</div>
+  // Fetch elections for the timeline.
+  const { data: elections, error: electionsError } = await supabase
+    .from('elections')
+    .select('id, name, date, state, type')
+    .eq('is_active', true)
+    .order('date', { ascending: true })
+
+  if (positionsError || electionsError) {
+    return (
+      <div className="p-8 text-red-400">
+        Error loading data:{' '}
+        {positionsError?.message || electionsError?.message}
+      </div>
+    )
   }
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Ballot — 2026 Candidates</h1>
-      <ul className="space-y-2">
-        {candidates?.map((c) => (
-          <li key={c.id}>
-            <Link
-              href={`/candidates/${c.id}`}
-              className="block border p-3 rounded hover:bg-gray-900 transition-colors"
-            >
-              <span className="font-semibold">{c.name}</span> — {c.party}
-              {c.is_incumbent && (
-                <span className="ml-2 text-sm text-gray-500">(incumbent)</span>
-              )}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main className="min-h-screen bg-black text-white">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <Hero />
+
+        <section className="mb-16">
+          <header className="mb-8">
+            <h2 className="text-3xl font-bold">Candidate Due Diligence</h2>
+            <p className="text-gray-400 mt-2">
+              Research the candidates running in the 2026 midterms, organized by office.
+            </p>
+          </header>
+
+          {positions?.map((p) => (
+            <RaceSection
+              key={p.id}
+              position={p}
+              candidates={p.candidates || []}
+            />
+          ))}
+        </section>
+
+        <Timeline elections={elections || []} />
+      </div>
     </main>
   )
 }
