@@ -1,20 +1,36 @@
-export default function Hero() {
-    return (
-      <section className="mb-16">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">Ballot</h1>
-          <p className="text-lg text-gray-400">
-            Voter information and civic intelligence for the 2026 U.S. midterms.
+import USMap from './USMap'
+
+type StateStatus = {
+  state: string
+  chamber: string
+  status: string
+  winning_party: string | null
+}
+
+type Props = {
+  statuses?: StateStatus[]
+  topology: any
+}
+
+export default function Hero({ statuses = [], topology }: Props) {
+  return (
+    <section className="pt-12 pb-16 md:pt-16 md:pb-20">
+      <div className="flex items-end justify-between flex-wrap gap-6 mb-8">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-brand mb-3">
+            2026 U.S. Midterm Elections
           </p>
+          <h1 className="font-display text-4xl md:text-6xl tracking-[-0.03em] leading-[0.95]">
+            Every race. Every candidate.
+          </h1>
         </div>
-  
-        {/* Map placeholder — real interactive map coming in Lessons 13–15 */}
-        <div className="aspect-[2/1] bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-gray-500 text-sm uppercase tracking-wider mb-2">Interactive Map</p>
-            <p className="text-gray-600 text-xs">Coming soon — state-by-state race tracker</p>
-          </div>
-        </div>
-      </section>
-    )
-  }
+        <p className="text-base md:text-lg text-text-muted max-w-sm leading-relaxed">
+          Track live results across all 50 states. Click into any race for
+          candidate profiles and policy research.
+        </p>
+      </div>
+
+      <USMap statuses={statuses} topology={topology} />
+    </section>
+  )
+}

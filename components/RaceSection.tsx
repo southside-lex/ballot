@@ -6,6 +6,7 @@ type Candidate = {
   party: string | null
   is_incumbent: boolean | null
   photo_url: string | null
+  short_bio: string | null
 }
 
 type Position = {
@@ -24,18 +25,30 @@ export default function RaceSection({
   candidates: Candidate[]
 }) {
   return (
-    <section className="mb-16">
-      <header className="mb-6">
-        <h2 className="text-2xl font-bold text-white">{position.title}</h2>
-        {position.description && (
-          <p className="text-gray-400 mt-2 max-w-2xl">{position.description}</p>
-        )}
-      </header>
+    <section className="py-12 border-t border-border">
+      {/* Section header */}
+      <div className="flex items-baseline justify-between flex-wrap gap-4 mb-8">
+        <div>
+          {position.state && (
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand mb-2">
+              {position.state}
+              {position.district && ` · District ${position.district}`}
+            </p>
+          )}
+          <h2 className="font-display text-2xl md:text-3xl tracking-[-0.02em] text-text leading-tight">
+            {position.title}
+          </h2>
+        </div>
+        <p className="font-mono text-xs text-text-dim">
+          {candidates.length} {candidates.length === 1 ? 'candidate' : 'candidates'}
+        </p>
+      </div>
 
+      {/* Candidate grid */}
       {candidates.length === 0 ? (
-        <p className="text-gray-500 italic">No candidates entered yet.</p>
+        <p className="text-text-dim italic text-sm">No candidates entered yet.</p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6">
           {candidates.map((c) => (
             <CandidateCard key={c.id} candidate={c} />
           ))}

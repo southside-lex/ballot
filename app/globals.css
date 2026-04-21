@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* ==============================================
+     PALETTE — off-white hold, purple brand
+     ============================================== */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Surfaces */
+  --color-bg: #FAFAF7;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F3F2EC;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Borders */
+  --color-border: #E5E2D9;
+  --color-border-strong: #BDB8A7;
+
+  /* Text */
+  --color-text: #1A1915;
+  --color-text-muted: #5C584E;
+  --color-text-dim: #9A9588;
+
+  /* Brand */
+  --color-brand: #5e17eb;
+  --color-brand-soft: #EDE6FF;
+  --color-brand-dim: #8957f0;
+
+  /* Party colors — small data accents only */
+  --color-party-democrat: #00aef3;
+  --color-party-republican: #e81b23;
+  --color-party-green: #508c1b;
+  --color-party-libertarian: #ffd100;
+  --color-party-independent: #5e17eb;
+
+  /* Fonts */
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', 'Courier New', monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss03", "cv01", "cv03", "cv04";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+a, button {
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease,
+    opacity 140ms ease;
+}
+
+body {
+  animation: pageIn 300ms ease-out;
+}
+@keyframes pageIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+::selection {
+  background-color: var(--color-brand);
+  color: #FFFFFF;
 }

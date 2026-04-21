@@ -8,31 +8,43 @@ type Election = {
   
   export default function Timeline({ elections }: { elections: Election[] }) {
     return (
-      <section className="mb-16">
-        <header className="mb-6">
-          <h2 className="text-2xl font-bold text-white">Election Timeline</h2>
-          <p className="text-gray-400 mt-2">Upcoming federal elections</p>
-        </header>
+      <section className="py-20 border-t border-border">
+        <div className="mb-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand mb-2">
+            Calendar
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl tracking-[-0.02em] text-text leading-tight">
+            Timeline.
+          </h2>
+        </div>
   
         {elections.length === 0 ? (
-          <p className="text-gray-500 italic">No upcoming elections scheduled.</p>
+          <p className="text-text-dim italic text-sm">No upcoming elections.</p>
         ) : (
-          <ol className="space-y-3">
+          <ol className="divide-y divide-border border-y border-border">
             {elections.map((e) => (
               <li
                 key={e.id}
-                className="flex items-start gap-4 border border-gray-800 rounded-lg p-4"
+                className="flex items-baseline gap-6 py-5"
               >
-                <div className="text-gray-400 text-sm font-mono whitespace-nowrap min-w-[110px]">
-                  {e.date ? new Date(e.date).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                  }) : 'TBD'}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{e.name}</h3>
-                  {e.type && <p className="text-sm text-gray-400 capitalize">{e.type}</p>}
+                <time className="font-mono text-xs text-brand tabular-nums whitespace-nowrap w-28 shrink-0">
+                  {e.date
+                    ? new Date(e.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })
+                    : 'TBD'}
+                </time>
+                <div className="flex-1">
+                  <h3 className="font-display text-lg md:text-xl tracking-tight text-text">
+                    {e.name}
+                  </h3>
+                  {e.type && (
+                    <p className="text-xs font-mono uppercase tracking-wider text-text-dim mt-0.5 capitalize">
+                      {e.type}
+                    </p>
+                  )}
                 </div>
               </li>
             ))}
