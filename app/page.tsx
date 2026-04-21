@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <main className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Ballot — Candidates</h1>
+      <h1 className="text-2xl font-bold mb-4">Ballot — 2026 Candidates</h1>
       <ul className="space-y-2">
         {candidates?.map((c) => (
           <li key={c.id}>
