@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
-import SiteHeader from '@/components/SiteHeader'
+import Link from 'next/link'
+import SiteHeader, { BallotLogo } from '@/components/SiteHeader'
 import Hero from '@/components/Hero'
 import RaceSection from '@/components/RaceSection'
 import Timeline from '@/components/Timeline'
@@ -55,7 +56,7 @@ export default async function Home() {
           <section>
             <div className="mb-4 flex items-baseline justify-between flex-wrap gap-4">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand mb-2">
+                <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand mb-2">
                   Portfolio
                 </p>
                 <h2 className="font-display text-3xl md:text-5xl tracking-[-0.025em] leading-[0.95]">
@@ -81,11 +82,10 @@ export default async function Home() {
 
           <footer className="py-12 border-t border-border mt-16">
             <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-brand" />
-                <span className="font-display text-base tracking-tight">Ballot</span>
-              </div>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-text-dim">
+              <Link href="/" className="flex items-center">
+                <BallotLogo className="h-6 w-auto text-text" />
+              </Link>
+              <p className="font-mono text-xs uppercase tracking-widest text-text-muted">
                 Civic intelligence · 2026
               </p>
             </div>

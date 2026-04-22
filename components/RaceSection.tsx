@@ -30,7 +30,7 @@ export default function RaceSection({
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8">
         <div className="md:col-span-5">
           {position.state && (
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand mb-2">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand mb-2">
               {position.state}
               {position.district && ` · District ${position.district}`}
             </p>
@@ -39,7 +39,7 @@ export default function RaceSection({
             {position.title}
           </h2>
           {position.current_holder && (
-            <p className="font-mono text-[10px] uppercase tracking-widest text-text-muted mt-3">
+            <p className="font-mono text-xs uppercase tracking-widest text-text-muted mt-3">
               Current: <span className="text-text">{position.current_holder}</span>
             </p>
           )}
@@ -51,14 +51,14 @@ export default function RaceSection({
               {position.description}
             </p>
           )}
-          <p className="font-mono text-xs text-text-dim">
+          <p className="font-mono text-xs text-text-muted">
             {candidates.length} {candidates.length === 1 ? 'candidate' : 'candidates'}
           </p>
         </div>
       </div>
 
       {candidates.length === 0 ? (
-        <p className="text-text-dim italic text-sm">No candidates entered yet.</p>
+        <p className="text-text-muted italic text-sm">No candidates entered yet.</p>
       ) : (
         <div className="relative -mx-6 px-6">
           <div className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:bg-border-strong [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">

@@ -74,49 +74,52 @@ export default function USMap({ statuses = [], topology }: Props) {
 
   return (
     <div className="relative w-full aspect-[16/10]">
-      <div className="absolute -top-2 left-0 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-text-dim z-10">
-        <span className="w-1 h-1 rounded-full bg-brand" />
+      {/* Top-left metadata */}
+      <div className="absolute -top-6 left-0 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-text-muted z-10">
+        <span className="w-1.5 h-1.5 rounded-full bg-brand" />
         Live · U.S. Senate
       </div>
 
+      {/* Hover readout */}
       {hovered && (
-        <div className="absolute -top-2 right-0 font-mono text-[10px] uppercase tracking-widest text-text z-10">
+        <div className="absolute -top-6 right-0 font-mono text-xs uppercase tracking-widest text-text z-10">
           {hovered}
         </div>
       )}
 
-      <div className="absolute -bottom-2 right-0 flex flex-col gap-1 text-[9px] font-mono uppercase tracking-wider text-text-muted z-10">
-        <div className="flex items-center gap-1.5">
+      {/* Bottom-right legend */}
+      <div className="absolute -bottom-2 right-0 flex flex-col gap-1.5 text-[11px] font-mono uppercase tracking-wider text-text-muted z-10">
+        <div className="flex items-center gap-2">
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: 'var(--color-party-democrat)' }}
           />
           Democratic
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: 'var(--color-party-republican)' }}
           />
           Republican
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: 'var(--color-party-independent)' }}
           />
           Independent
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: 'var(--color-party-green)' }}
           />
           Green
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: 'var(--color-party-libertarian)' }}
           />
           Libertarian

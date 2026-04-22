@@ -36,28 +36,28 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-text-dim">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
               Portrait pending
             </span>
           </div>
         )}
 
         {candidate.is_incumbent && (
-          <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-brand">
-            <span className="font-mono text-[9px] uppercase tracking-wider text-white font-bold">
+          <div className="absolute top-3 left-3 inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-brand leading-none">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-white font-bold">
               In office
             </span>
           </div>
         )}
       </div>
 
-      <div className="pt-3 min-h-[64px]">
+      <div className="pt-3 min-h-[68px]">
         <div className="flex items-center gap-1.5 mb-1">
           <span
-            className="w-1.5 h-1.5 rounded-full shrink-0"
+            className="w-2 h-2 rounded-full shrink-0"
             style={{ backgroundColor: partyColor(candidate.party) }}
           />
-          <span className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-text-muted">
             {candidate.party}
           </span>
         </div>

@@ -14,10 +14,10 @@ type Props = {
 
 export default function Hero({ statuses = [], topology }: Props) {
   return (
-    <section className="pt-12 pb-16 md:pt-16 md:pb-20">
-      <div className="flex items-end justify-between flex-wrap gap-6 mb-8">
+    <section className="pt-12 pb-16 md:pt-16 md:pb-24">
+      <div className="flex items-end justify-between flex-wrap gap-6 mb-12">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-brand mb-3">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand mb-4">
             2026 U.S. Midterm Elections
           </p>
           <h1 className="font-display text-4xl md:text-6xl tracking-[-0.03em] leading-[0.95]">

@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+html {
+  color-scheme: light;
+}
+
 @theme {
   /* ==============================================
-     PALETTE — off-white hold, purple brand
+     PALETTE — off-white, electric purple brand
      ============================================== */
 
   /* Surfaces */
@@ -19,17 +23,17 @@
   --color-text-muted: #5C584E;
   --color-text-dim: #9A9588;
 
-  /* Brand */
-  --color-brand: #5e17eb;
-  --color-brand-soft: #EDE6FF;
-  --color-brand-dim: #8957f0;
+  /* Brand — bright electric purple, unambiguously independent */
+  --color-brand: #A020F0;
+  --color-brand-soft: #F3E0FF;
+  --color-brand-dim: #B852F3;
 
   /* Party colors — small data accents only */
   --color-party-democrat: #00aef3;
   --color-party-republican: #e81b23;
   --color-party-green: #508c1b;
   --color-party-libertarian: #ffd100;
-  --color-party-independent: #5e17eb;
+  --color-party-independent: #A020F0;
 
   /* Fonts */
   --font-sans: var(--font-sans), system-ui, sans-serif;
