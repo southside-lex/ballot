@@ -26,7 +26,6 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
       href={`/candidates/${candidate.id}`}
       className="group block"
     >
-      {/* Photo — the hero of the card */}
       <div className="aspect-[4/5] bg-surface-raised rounded-md overflow-hidden relative border border-border">
         {candidate.photo_url ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -43,18 +42,16 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
           </div>
         )}
 
-        {/* Incumbent tag */}
         {candidate.is_incumbent && (
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-bg/90 backdrop-blur-sm border border-border">
-            <span className="font-mono text-[9px] uppercase tracking-wider text-text">
-              Incumbent
+          <div className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-brand">
+            <span className="font-mono text-[9px] uppercase tracking-wider text-white font-bold">
+              In office
             </span>
           </div>
         )}
       </div>
 
-      {/* Minimal text below */}
-      <div className="pt-3">
+      <div className="pt-3 min-h-[64px]">
         <div className="flex items-center gap-1.5 mb-1">
           <span
             className="w-1.5 h-1.5 rounded-full shrink-0"
@@ -64,7 +61,7 @@ export default function CandidateCard({ candidate }: { candidate: Candidate }) {
             {candidate.party}
           </span>
         </div>
-        <h3 className="font-display text-base md:text-lg tracking-tight text-text leading-tight group-hover:text-brand transition-colors">
+        <h3 className="font-display text-base md:text-lg tracking-tight leading-tight group-hover:text-brand transition-colors line-clamp-2">
           {candidate.name}
         </h3>
       </div>

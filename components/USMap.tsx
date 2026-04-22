@@ -34,6 +34,7 @@ function partyFill(party: string | null | undefined): string {
   if (p.includes('republican')) return 'var(--color-party-republican)'
   if (p.includes('green')) return 'var(--color-party-green)'
   if (p.includes('libertarian')) return 'var(--color-party-libertarian)'
+  if (p.includes('independent')) return 'var(--color-party-independent)'
   return 'var(--color-brand)'
 }
 
@@ -72,32 +73,55 @@ export default function USMap({ statuses = [], topology }: Props) {
   }, [topology])
 
   return (
-    <div className="relative w-full aspect-[16/10] bg-surface border border-border rounded-lg overflow-hidden">
-      <div className="absolute top-4 left-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-text-dim z-10">
-        <span className="w-1.5 h-1.5 rounded-full bg-brand" />
+    <div className="relative w-full aspect-[16/10]">
+      <div className="absolute -top-2 left-0 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-text-dim z-10">
+        <span className="w-1 h-1 rounded-full bg-brand" />
         Live · U.S. Senate
       </div>
 
-      <div className="absolute bottom-4 right-4 flex flex-col gap-1.5 text-[10px] font-mono uppercase tracking-wider text-text-muted z-10">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'var(--color-party-democrat)' }} />
-          Democratic
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'var(--color-party-republican)' }} />
-          Republican
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-sm border border-border-strong" style={{ backgroundColor: 'var(--color-surface-raised)' }} />
-          No election
-        </div>
-      </div>
-
       {hovered && (
-        <div className="absolute top-4 right-4 font-mono text-xs text-text bg-bg px-3 py-1.5 rounded-md border border-border z-10">
+        <div className="absolute -top-2 right-0 font-mono text-[10px] uppercase tracking-widest text-text z-10">
           {hovered}
         </div>
       )}
+
+      <div className="absolute -bottom-2 right-0 flex flex-col gap-1 text-[9px] font-mono uppercase tracking-wider text-text-muted z-10">
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: 'var(--color-party-democrat)' }}
+          />
+          Democratic
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: 'var(--color-party-republican)' }}
+          />
+          Republican
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: 'var(--color-party-independent)' }}
+          />
+          Independent
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: 'var(--color-party-green)' }}
+          />
+          Green
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: 'var(--color-party-libertarian)' }}
+          />
+          Libertarian
+        </div>
+      </div>
 
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-full">
         <g>
@@ -114,14 +138,17 @@ export default function USMap({ statuses = [], topology }: Props) {
                 fill={fill}
                 stroke="var(--color-border-strong)"
                 strokeWidth={0.5}
-                style={{ cursor: 'pointer', transition: 'opacity 140ms ease' }}
+                style={{
+                  cursor: 'pointer',
+                  transition: 'fill 140ms ease',
+                }}
                 onMouseEnter={(e) => {
                   setHovered(p.name)
-                  e.currentTarget.style.opacity = '0.85'
+                  if (!status) e.currentTarget.style.fill = 'var(--color-brand)'
                 }}
                 onMouseLeave={(e) => {
                   setHovered(null)
-                  e.currentTarget.style.opacity = '1'
+                  e.currentTarget.style.fill = fill
                 }}
               />
             )

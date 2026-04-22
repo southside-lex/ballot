@@ -17,7 +17,7 @@ export default async function Home() {
     supabase
       .from('positions')
       .select(`
-        id, title, description, state, district, hierarchy_rank,
+        id, title, description, state, district, hierarchy_rank, current_holder,
         candidates ( id, name, party, is_incumbent, photo_url, short_bio )
       `)
       .order('hierarchy_rank', { ascending: true })
