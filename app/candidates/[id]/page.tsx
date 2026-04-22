@@ -57,7 +57,11 @@ export default async function CandidateProfile({
     notFound()
   }
 
-  const position = candidate.positions as {
+  const position = (
+    Array.isArray(candidate.positions)
+      ? candidate.positions[0]
+      : candidate.positions
+  ) as {
     id: number
     title: string
     description: string | null
