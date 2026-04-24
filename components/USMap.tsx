@@ -114,22 +114,18 @@ export default function USMap({ statuses = [], topology }: Props) {
 
   return (
     <div>
-      {/* Map container */}
       <div className="relative w-full aspect-[16/10]">
-        {/* Top-left metadata */}
         <div className="absolute -top-6 left-0 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-text-muted z-10">
           <span className="w-1.5 h-1.5 rounded-full bg-brand" />
           Live · U.S. Senate
         </div>
 
-        {/* Hover readout — appears on hover */}
         {hovered && (
           <div className="absolute -top-6 right-0 font-mono text-xs uppercase tracking-widest text-text z-10">
             {hovered}
           </div>
         )}
 
-        {/* Desktop-only in-map legend (hidden on mobile) */}
         <div className="hidden md:flex absolute -bottom-2 right-0 flex-col gap-1.5 text-[11px] font-mono uppercase tracking-wider text-text-muted z-10">
           {legendItems}
         </div>
@@ -138,12 +134,10 @@ export default function USMap({ statuses = [], topology }: Props) {
           <g>
             {paths.map((p) => {
               const status = statusByFips.get(p.id)
-              const baseFill = status
+              const hasCalledResult = status && status.winning_party
+              const baseFill = hasCalledResult
                 ? partyFill(status.winning_party)
                 : 'var(--color-surface-raised)'
-              const hoverFill = status
-                ? partyFill(status.winning_party)
-                : 'var(--color-brand)'
 
               return (
                 <path
@@ -158,8 +152,13 @@ export default function USMap({ statuses = [], topology }: Props) {
                   }}
                   onMouseEnter={(e) => {
                     setHovered(p.name)
-                    e.currentTarget.style.fill = hoverFill
-                    e.currentTarget.style.opacity = status ? '0.85' : '1'
+                    if (hasCalledResult) {
+                      // Called state: darken slightly via opacity
+                      e.currentTarget.style.opacity = '0.75'
+                    } else {
+                      // Uncalled or no-data state: flash brand purple
+                      e.currentTarget.style.fill = 'var(--color-brand)'
+                    }
                   }}
                   onMouseLeave={(e) => {
                     setHovered(null)
@@ -173,7 +172,6 @@ export default function USMap({ statuses = [], topology }: Props) {
         </svg>
       </div>
 
-      {/* Mobile-only below-map legend */}
       <div className="md:hidden mt-6 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-wider text-text-muted">
         {legendItems}
       </div>
