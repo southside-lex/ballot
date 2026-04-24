@@ -72,92 +72,111 @@ export default function USMap({ statuses = [], topology }: Props) {
     }))
   }, [topology])
 
+  const legendItems = (
+    <>
+      <div className="flex items-center gap-2">
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: 'var(--color-party-democrat)' }}
+        />
+        Democratic
+      </div>
+      <div className="flex items-center gap-2">
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: 'var(--color-party-republican)' }}
+        />
+        Republican
+      </div>
+      <div className="flex items-center gap-2">
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: 'var(--color-party-independent)' }}
+        />
+        Independent
+      </div>
+      <div className="flex items-center gap-2">
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: 'var(--color-party-green)' }}
+        />
+        Green
+      </div>
+      <div className="flex items-center gap-2">
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: 'var(--color-party-libertarian)' }}
+        />
+        Libertarian
+      </div>
+    </>
+  )
+
   return (
-    <div className="relative w-full aspect-[16/10]">
-      {/* Top-left metadata */}
-      <div className="absolute -top-6 left-0 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-text-muted z-10">
-        <span className="w-1.5 h-1.5 rounded-full bg-brand" />
-        Live · U.S. Senate
+    <div>
+      {/* Map container */}
+      <div className="relative w-full aspect-[16/10]">
+        {/* Top-left metadata */}
+        <div className="absolute -top-6 left-0 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-text-muted z-10">
+          <span className="w-1.5 h-1.5 rounded-full bg-brand" />
+          Live · U.S. Senate
+        </div>
+
+        {/* Hover readout — appears on hover */}
+        {hovered && (
+          <div className="absolute -top-6 right-0 font-mono text-xs uppercase tracking-widest text-text z-10">
+            {hovered}
+          </div>
+        )}
+
+        {/* Desktop-only in-map legend (hidden on mobile) */}
+        <div className="hidden md:flex absolute -bottom-2 right-0 flex-col gap-1.5 text-[11px] font-mono uppercase tracking-wider text-text-muted z-10">
+          {legendItems}
+        </div>
+
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-full">
+          <g>
+            {paths.map((p) => {
+              const status = statusByFips.get(p.id)
+              const baseFill = status
+                ? partyFill(status.winning_party)
+                : 'var(--color-surface-raised)'
+              const hoverFill = status
+                ? partyFill(status.winning_party)
+                : 'var(--color-brand)'
+
+              return (
+                <path
+                  key={p.id}
+                  d={p.d}
+                  fill={baseFill}
+                  stroke="var(--color-border-strong)"
+                  strokeWidth={0.5}
+                  style={{
+                    cursor: 'pointer',
+                    transition: 'fill 140ms ease, opacity 140ms ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    setHovered(p.name)
+                    e.currentTarget.style.fill = hoverFill
+                    e.currentTarget.style.opacity = status ? '0.85' : '1'
+                  }}
+                  onMouseLeave={(e) => {
+                    setHovered(null)
+                    e.currentTarget.style.fill = baseFill
+                    e.currentTarget.style.opacity = '1'
+                  }}
+                />
+              )
+            })}
+          </g>
+        </svg>
       </div>
 
-      {/* Hover readout */}
-      {hovered && (
-        <div className="absolute -top-6 right-0 font-mono text-xs uppercase tracking-widest text-text z-10">
-          {hovered}
-        </div>
-      )}
-
-      {/* Bottom-right legend */}
-      <div className="absolute -bottom-2 right-0 flex flex-col gap-1.5 text-[11px] font-mono uppercase tracking-wider text-text-muted z-10">
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: 'var(--color-party-democrat)' }}
-          />
-          Democratic
-        </div>
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: 'var(--color-party-republican)' }}
-          />
-          Republican
-        </div>
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: 'var(--color-party-independent)' }}
-          />
-          Independent
-        </div>
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: 'var(--color-party-green)' }}
-          />
-          Green
-        </div>
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: 'var(--color-party-libertarian)' }}
-          />
-          Libertarian
-        </div>
+      {/* Mobile-only below-map legend */}
+      <div className="md:hidden mt-6 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-wider text-text-muted">
+        {legendItems}
       </div>
-
-      <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-full">
-        <g>
-          {paths.map((p) => {
-            const status = statusByFips.get(p.id)
-            const fill = status
-              ? partyFill(status.winning_party)
-              : 'var(--color-surface-raised)'
-
-            return (
-              <path
-                key={p.id}
-                d={p.d}
-                fill={fill}
-                stroke="var(--color-border-strong)"
-                strokeWidth={0.5}
-                style={{
-                  cursor: 'pointer',
-                  transition: 'fill 140ms ease',
-                }}
-                onMouseEnter={(e) => {
-                  setHovered(p.name)
-                  if (!status) e.currentTarget.style.fill = 'var(--color-brand)'
-                }}
-                onMouseLeave={(e) => {
-                  setHovered(null)
-                  e.currentTarget.style.fill = fill
-                }}
-              />
-            )
-          })}
-        </g>
-      </svg>
     </div>
   )
 }

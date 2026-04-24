@@ -9,7 +9,6 @@ export function BallotLogo({ className = '' }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Ballot"
     >
-      {/* Wordmark */}
       <text
         x="0"
         y="45"
@@ -22,12 +21,9 @@ export function BallotLogo({ className = '' }: { className?: string }) {
         ballot
       </text>
 
-      {/* Four purple oval outlines, 2x2 grid */}
       <g stroke="var(--color-brand)" strokeWidth="3" fill="none">
-        {/* Top row */}
         <ellipse cx="145" cy="18" rx="14" ry="9" />
         <ellipse cx="180" cy="18" rx="14" ry="9" />
-        {/* Bottom row */}
         <ellipse cx="145" cy="42" rx="14" ry="9" />
         <ellipse cx="180" cy="42" rx="14" ry="9" />
       </g>
@@ -44,9 +40,9 @@ export default function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-7 text-sm">
-          <Link href="/" className="text-text-muted hover:text-text">Candidates</Link>
-          <Link href="/" className="text-text-muted hover:text-text">Races</Link>
-          <Link href="/" className="text-text-muted hover:text-text">Timeline</Link>
+          <Link href="/" className="text-text-muted hover:text-text">Politics</Link>
+          <Link href="/economy" className="text-text-muted hover:text-text">Economy</Link>
+          <Link href="/perspectives" className="text-text-muted hover:text-text">Perspectives</Link>
           <span className="text-text-dim hidden md:inline">·</span>
           <span className="font-mono text-xs text-text-muted uppercase tracking-wider hidden md:inline">
             2026 Midterms
